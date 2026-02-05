@@ -5,17 +5,17 @@ URL = "https://p-bandai.jp/item/item-1000135894/"
 
 html = requests.get(URL).text
 
-# ページの中身を少しだけ表示（デバッグ用）
-print(html[:500])
+def notify(text):
+    requests.post(WEBHOOK_URL, json={"content": text})
 
 if "再販受付中" in html:
-    print("再販受付中 を見つけました！")
+    notify("🎉 ガンプラ再販！『再販受付中』になりました")
 
 elif "予約受付中" in html:
-    print("予約受付中 を見つけました！")
+    notify("🎉 ガンプラ再販！『予約受付中』になりました")
 
 elif "販売中" in html:
-    print("販売中 を見つけました！")
+    notify("🎉 ガンプラ販売中になりました")
 
 else:
     print("まだ再販されていません")
